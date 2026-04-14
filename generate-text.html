@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | Generate Text</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="generate">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2 class="section-heading">
+            Generate Text
+            <button class="help-tip" type="button" data-help="Generate boundary and stress-test strings by length, repetition, char tables, or Unicode range.">?</button>
+          </h2>
+          <p>
+            Generate fixed-length identifiable strings, all character codes from
+            1 to 255, or repeated text like <code>X</code> x 1000000.
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="grid">
+            <div class="tool">
+              <label for="lengthInput">Generate by length</label>
+              <input id="lengthInput" type="number" min="1" value="15" />
+              <button id="genLength">Generate Length Text</button>
+              <p class="hint">Example style: <code>A3A5A7A9A12A15A</code></p>
+            </div>
+            <div class="tool">
+              <label>Generate all character codes</label>
+              <button id="genAllChars">Generate 1..255</button>
+            </div>
+            <div class="tool">
+              <label for="charInput">Text times</label>
+              <input id="charInput" value="X" />
+              <label for="timesInput">Times</label>
+              <input id="timesInput" type="number" min="0" value="1000000" />
+              <button id="genTimes">Generate Repeated Text</button>
+            </div>
+            <div class="tool">
+              <label for="unicodeRangeSelect">Unicode range</label>
+              <select id="unicodeRangeSelect"></select>
+              <label for="unicodeMaxPoints">Max code points to generate</label>
+              <input id="unicodeMaxPoints" type="number" min="1" max="50000" value="2048" />
+              <button id="genUnicodeRange">Generate Unicode Range</button>
+              <p class="hint">Use a max to avoid very large outputs for huge blocks.</p>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 12px;">
+            <button id="copyGenerate" class="ghost">Copy Output</button>
+          </div>
+          <div class="output" id="generateOutput"></div>
+          <div class="status" id="generateStatus"></div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

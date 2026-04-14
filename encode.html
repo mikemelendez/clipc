@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | Encode / Decode</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="encode">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2 class="section-heading">
+            Encoding Tools
+            <button class="help-tip" type="button" data-help="Enter text, pick a tool group, and run conversion. If input is blank, a sample value is auto-seeded.">?</button>
+          </h2>
+          <p>Choose a data transformation group and apply it to your input quickly.</p>
+        </section>
+
+        <section class="card">
+          <div class="utility-bar">
+            <button id="swapEncode" class="ghost">Swap Input/Output</button>
+            <button id="clearEncode" class="ghost">Clear</button>
+            <button id="copyEncode" class="ghost">Copy Output</button>
+          </div>
+          <label for="encodeInput">Input</label>
+          <textarea id="encodeInput">laiↄᴙɘm.moↄ</textarea>
+
+          <div class="grid">
+            <article class="tool">
+              <h3>Base64 / URL</h3>
+              <div class="row">
+                <button id="b64Encode">Base64 Encode</button>
+                <button id="b64Decode">Base64 Decode</button>
+                <button id="urlEncode">URL Encode</button>
+                <button id="urlDecode">URL Decode</button>
+                <button id="uriEncode">encodeURI</button>
+                <button id="uriDecode">decodeURI</button>
+              </div>
+            </article>
+
+            <article class="tool">
+              <h3>Hex / Binary</h3>
+              <div class="row">
+                <button id="hexEncode">Hex Encode</button>
+                <button id="hexDecode">Hex Decode</button>
+                <button id="binEncode">Binary Encode</button>
+                <button id="binDecode">Binary Decode</button>
+              </div>
+            </article>
+
+            <article class="tool">
+              <h3>Hashing</h3>
+              <div class="row">
+                <button id="md5Hash">MD5 Hash</button>
+                <button id="sha1Hash">SHA-1 Hash</button>
+                <button id="sha256Hash">SHA-256 Hash</button>
+                <button id="sha512Hash">SHA-512 Hash</button>
+              </div>
+              <p class="hint">Use MD5 output to compare payload integrity in tests.</p>
+            </article>
+
+            <article class="tool">
+              <h3>Escaping</h3>
+              <div class="row">
+                <button id="htmlEncode">HTML Entity Encode</button>
+                <button id="htmlDecode">HTML Entity Decode</button>
+                <button id="jsonEscape">JSON Escape</button>
+                <button id="jsonUnescape">JSON Unescape</button>
+              </div>
+            </article>
+
+            <article class="tool">
+              <h3>Unicode / Text Normalize</h3>
+              <div class="row">
+                <button id="normNfc">Normalize NFC</button>
+                <button id="normNfd">Normalize NFD</button>
+                <button id="normNfkc">Normalize NFKC</button>
+                <button id="normNfkd">Normalize NFKD</button>
+                <button id="trimText">Trim</button>
+                <button id="collapseWhitespace">Collapse Whitespace</button>
+                <button id="lfNormalize">Normalize to LF</button>
+                <button id="crlfNormalize">Normalize to CRLF</button>
+                <button id="tabsToSpaces">Tabs to Spaces</button>
+                <button id="spacesToTabs">Spaces to Tabs</button>
+                <button id="toUpper">UPPERCASE</button>
+                <button id="toLower">lowercase</button>
+              </div>
+            </article>
+
+            <article class="tool">
+              <h3>Web / Data helpers</h3>
+              <div class="row">
+                <button id="jwtDecode">JWT Decode</button>
+                <button id="queryParse">Query Parse -> JSON</button>
+                <button id="queryBuild">JSON -> Query Build</button>
+                <button id="csvEscape">CSV Escape</button>
+                <button id="tsvEscape">TSV Escape</button>
+                <button id="unixToIso">Unix -> ISO</button>
+                <button id="isoToUnixMs">ISO -> Unix ms</button>
+                <button id="isoToUnixSec">ISO -> Unix sec</button>
+              </div>
+              <p class="hint">`queryBuild` expects flat JSON object in input.</p>
+            </article>
+          </div>
+          <div class="output" id="encodeOutput"></div>
+          <div class="status" id="encodeStatus"></div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

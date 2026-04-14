@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | Unicode Tools for Testers</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="home">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2>Welcome to ClipC</h2>
+          <p>
+            A utility website for QA and test engineers to quickly generate,
+            transform, encode, and validate unusual Unicode and edge-case input.
+          </p>
+          <p class="hint">
+            The layout uses a left-hand menu inspired by the browsing style of
+            Material Design's content navigation.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>I want to...</h2>
+          <div class="grid action-grid">
+            <a class="tool action-tile" href="unicode-converter.html">
+              <h3>Convert text to Unicode styles</h3>
+              <p>Quickly produce strange copy/paste test strings.</p>
+            </a>
+            <a class="tool action-tile" href="generate-text.html">
+              <h3>Generate long test input</h3>
+              <p>Create length markers, repeated strings, and Unicode ranges.</p>
+            </a>
+            <a class="tool action-tile" href="encode.html">
+              <h3>Encode or decode payloads</h3>
+              <p>Use Base64, URL, hex, binary, and hash tools.</p>
+            </a>
+            <a class="tool action-tile" href="common-input.html">
+              <h3>Create random test data</h3>
+              <p>Generate random email, phone, card-like, and address values.</p>
+            </a>
+            <a class="tool action-tile" href="websec.html">
+              <h3>Copy WebSec payloads</h3>
+              <p>Quickly grab common XSS and SQL injection test strings.</p>
+            </a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Sections</h2>
+          <div class="grid">
+            <article class="tool">
+              <h3>Unicode Text Converter</h3>
+              <p>Transliterate plain text into obscure Unicode variants.</p>
+            </article>
+            <article class="tool">
+              <h3>Unicode Text Transformations</h3>
+              <p>Braille conversion, IDN encode/decode, interleaving, and zalgo text.</p>
+            </article>
+            <article class="tool">
+              <h3>Generate Text</h3>
+              <p>Generate deterministic identifiers, full character ranges, and repeated strings.</p>
+            </article>
+            <article class="tool">
+              <h3>Encode / Decode</h3>
+              <p>Base64 and URL encoding utilities.</p>
+            </article>
+            <article class="tool">
+              <h3>Common Input Generator</h3>
+              <p>Randomized email, phone, card-like and address-like test values.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Inspired on:</h2>
+          <div class="link-list">
+            <a href="https://qaz.wtf/u" target="https://qaz.wtf/" rel="noreferrer">Unicode Toys by Eli the Bearded / Benjamin Elijah Griffin</a>
+            <a href="https://www.satisfice.com/download/perlclip" target="https://www.satisfice.com/download/perlclip" rel="noreferrer">PerlClip tool by James Bach</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>About the Author</h2>
+          <p>
+            Add your profile, project background, and contact information on the
+            dedicated About page.
+          </p>
+          <div class="link-list">
+            <a href="about.html">Open About page</a>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

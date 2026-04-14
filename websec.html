@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | WebSec Payloads</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="websec">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2 class="section-heading">
+            WebSec Payloads
+            <button class="help-tip" type="button" data-help="Browse and copy common XSS/SQLi payloads for authorized security testing only.">?</button>
+          </h2>
+          <p>One-click copy for common XSS and SQL injection test strings.</p>
+          <p class="hint">Use only in authorized test environments.</p>
+        </section>
+
+        <section class="card">
+          <div class="grid">
+            <div class="tool">
+              <label for="websecTypeFilter">Filter by type</label>
+              <select id="websecTypeFilter">
+                <option value="ALL">All</option>
+                <option value="XSS">XSS</option>
+                <option value="SQLi">SQLi</option>
+              </select>
+            </div>
+            <div class="tool">
+              <label for="websecSearch">Search payload text</label>
+              <input id="websecSearch" placeholder="e.g. alert or UNION SELECT" />
+            </div>
+          </div>
+          <div id="websecPayloads"></div>
+          <div class="status" id="websecStatus"></div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

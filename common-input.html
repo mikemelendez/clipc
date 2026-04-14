@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | Common Input Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="common-input">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2 class="section-heading">
+            Common Input Generator
+            <button class="help-tip" type="button" data-help="Generate random test-like values for email, phone, card number, and address fields.">?</button>
+          </h2>
+          <p>Generate random values frequently used for test scenarios.</p>
+        </section>
+
+        <section class="card">
+          <div class="row">
+            <button id="randomEmail">Generate Random Email</button>
+            <button id="randomPhone">Generate Random Phone Number</button>
+            <button id="randomCreditCard">Generate Random Credit Card</button>
+            <button id="randomAddress">Generate Random Address</button>
+            <button id="copyCommon" class="ghost">Copy Output</button>
+          </div>
+          <div class="output" id="commonOutput"></div>
+          <div class="status" id="commonStatus"></div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

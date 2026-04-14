@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipC | Unicode Text Converter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="unicode">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-body">
+          <h1 class="brand">ClipC</h1>
+          <p class="subtitle">Unicode-focused test utilities in one place.</p>
+          <div class="menu-group">
+            <h3 class="menu-title">Tools</h3>
+            <ul class="menu-list" data-nav></ul>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <ul class="menu-list" data-nav-footer></ul>
+        </div>
+      </aside>
+      <main>
+        <section class="card">
+          <h2 class="section-heading">
+            Unicode Lab
+            <button class="help-tip" type="button" data-help="Use Styles for visual conversions and Transformations for Braille/IDN tools.">?</button>
+          </h2>
+          <p>
+            Use tabs to switch between style conversion and text
+            transformations without leaving the page.
+          </p>
+          <div class="tab-list">
+            <button class="tab-btn active" data-tab="stylesTab">Styles</button>
+            <button class="tab-btn" data-tab="transformTab">Transformations</button>
+          </div>
+        </section>
+
+        <section class="card tab-panel active" id="stylesTab">
+          <label for="unicodeInput">Input text</label>
+          <textarea id="unicodeInput">This is the toy most visitors here want</textarea>
+          <label>Style buttons</label>
+          <div id="stylePreview" class="preview-chips"></div>
+          <div class="row">
+            <button id="convertUnicode">Convert</button>
+            <button id="styleInterleave">Interleave Whitespace</button>
+            <button id="styleZalgo">Zalgo Style</button>
+            <button id="copyUnicode" class="ghost">Copy Output</button>
+          </div>
+          <div class="output" id="unicodeOutput"></div>
+          <div class="status" id="unicodeStatus"></div>
+        </section>
+
+        <section class="card tab-panel" id="transformTab">
+          <label for="transformInput">Input text or domain</label>
+          <textarea id="transformInput">⠠⠗⠕⠕⠍ ⠼⠁⠚⠁</textarea>
+          <div class="row">
+            <button id="toBraille">To Braille</button>
+            <button id="fromBraille">From Braille</button>
+            <button id="idnEncode">IDN Encode</button>
+            <button id="idnDecode">IDN Decode</button>
+            <button id="copyTransform" class="ghost">Copy Output</button>
+          </div>
+          <div class="output" id="transformOutput"></div>
+          <div class="status" id="transformStatus"></div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
