@@ -532,6 +532,112 @@ function csvEscape(text, delimiter = ",") {
     .join("\n");
 }
 
+function prettifyJson(text) {
+  return JSON.stringify(JSON.parse(text), null, 2);
+}
+
+function prettifyXml(text) {
+  const parser = new DOMParser();
+  const documentXml = parser.parseFromString(text.trim(), "application/xml");
+  if (documentXml.getElementsByTagName("parsererror").length) {
+    throw new Error("Invalid XML.");
+  }
+
+  const serialized = new XMLSerializer().serializeToString(documentXml);
+  const lines = serialized
+    .replace(/>\s*</g, ">\n<")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  let depth = 0;
+
+  return lines.map((line) => {
+    if (/^<\/[^>]+>/.test(line)) depth = Math.max(depth - 1, 0);
+    const indented = `${"  ".repeat(depth)}${line}`;
+    if (
+      /^<[^!?/][^>]*[^/]?>$/.test(line) &&
+      !/^<([^>\s/]+)(?:\s[^>]*)?>.*<\/\1>$/.test(line)
+    ) {
+      depth += 1;
+    }
+    return indented;
+  }).join("\n");
+}
+
+function protectSqlLiterals(text) {
+  const literals = [];
+  let template = "";
+  let i = 0;
+
+  while (i < text.length) {
+    const char = text[i];
+    const closingChar = char === "[" ? "]" : char;
+    if (char !== "'" && char !== "\"" && char !== "`" && char !== "[") {
+      template += char;
+      i += 1;
+      continue;
+    }
+
+    let literal = char;
+    i += 1;
+    while (i < text.length) {
+      literal += text[i];
+      if (text[i] === "\\" && i + 1 < text.length) {
+        i += 1;
+        literal += text[i];
+      } else if (text[i] === closingChar) {
+        if (text[i + 1] === closingChar && closingChar !== "]") {
+          i += 1;
+          literal += text[i];
+        } else {
+          i += 1;
+          break;
+        }
+      }
+      i += 1;
+    }
+
+    const marker = `__CLIPC_SQL_LITERAL_${literals.length}__`;
+    literals.push(literal);
+    template += marker;
+  }
+
+  return { template, literals };
+}
+
+function restoreSqlLiterals(text, literals) {
+  return text.replace(/__CLIPC_SQL_LITERAL_(\d+)__/g, (_, index) => literals[Number(index)]);
+}
+
+function prettifySql(text) {
+  const { template, literals } = protectSqlLiterals(text.trim());
+  if (!template) return "";
+
+  const keywordPattern = /\b(select|distinct|from|where|join|inner|left|right|full|outer|cross|on|and|or|group|by|order|having|limit|offset|insert|into|values|update|set|delete|create|alter|drop|table|case|when|then|else|end|as|union|all)\b/gi;
+  let sql = template
+    .replace(/\s+/g, " ")
+    .replace(keywordPattern, (match) => match.toUpperCase())
+    .replace(/\bGROUP\s+BY\b/g, "GROUP BY")
+    .replace(/\bORDER\s+BY\b/g, "ORDER BY")
+    .replace(/\bLEFT\s+JOIN\b/g, "LEFT JOIN")
+    .replace(/\bRIGHT\s+JOIN\b/g, "RIGHT JOIN")
+    .replace(/\bINNER\s+JOIN\b/g, "INNER JOIN")
+    .replace(/\bFULL\s+JOIN\b/g, "FULL JOIN")
+    .replace(/\bCROSS\s+JOIN\b/g, "CROSS JOIN");
+
+  sql = sql
+    .replace(/\s*,\s*/g, ",\n  ")
+    .replace(/\s+(FROM|WHERE|GROUP BY|ORDER BY|HAVING|LIMIT|OFFSET|VALUES|SET|UNION ALL|UNION)\b/g, "\n$1")
+    .replace(/\s+((?:LEFT|RIGHT|INNER|FULL|CROSS)\s+JOIN|JOIN)\b/g, "\n$1")
+    .replace(/\s+(ON)\b/g, "\n  $1")
+    .replace(/\s+(AND|OR)\b/g, "\n  $1")
+    .replace(/\(\s+/g, "(")
+    .replace(/\s+\)/g, ")")
+    .replace(/\n{2,}/g, "\n");
+
+  return restoreSqlLiterals(sql.trim(), literals);
+}
+
 function initUnicodeConverter() {
   const input = document.getElementById("unicodeInput");
   const output = document.getElementById("unicodeOutput");
@@ -744,6 +850,9 @@ function initEncode() {
     htmlDecode: "Decode HTML entities back to text.",
     jsonEscape: "Escape as JSON string literal.",
     jsonUnescape: "Unescape JSON string literal to text.",
+    jsonPrettify: "Format JSON with 2-space indentation.",
+    xmlPrettify: "Format XML with readable indentation.",
+    sqlPrettify: "Format common SQL statements with readable line breaks.",
     normNfc: "Normalize Unicode to NFC form.",
     normNfd: "Normalize Unicode to NFD form.",
     normNfkc: "Normalize Unicode to NFKC form.",
@@ -870,6 +979,18 @@ function initEncode() {
   document.getElementById("jsonUnescape").addEventListener("click", () => {
     ensureSeedInput(() => JSON.stringify(seedText));
     safeRun(() => JSON.parse(input.value), "Invalid JSON string input.");
+  });
+  document.getElementById("jsonPrettify").addEventListener("click", () => {
+    ensureSeedInput(() => JSON.stringify({ example: seedText, values: [1, 2, 3] }));
+    safeRun(() => prettifyJson(input.value), "Invalid JSON input.");
+  });
+  document.getElementById("xmlPrettify").addEventListener("click", () => {
+    ensureSeedInput(() => `<root><example>${seedText}</example><values><value>1</value><value>2</value></values></root>`);
+    safeRun(() => prettifyXml(input.value), "Invalid XML input.");
+  });
+  document.getElementById("sqlPrettify").addEventListener("click", () => {
+    ensureSeedInput(() => "select id,name from users where active = 1 and role = 'admin' order by name");
+    safeRun(() => prettifySql(input.value), "Unable to prettify SQL input.");
   });
   document.getElementById("normNfc").addEventListener("click", () => { ensureSeedInput(() => seedText); output.textContent = input.value.normalize("NFC"); });
   document.getElementById("normNfd").addEventListener("click", () => { ensureSeedInput(() => seedText); output.textContent = input.value.normalize("NFD"); });
